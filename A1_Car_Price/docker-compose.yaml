@@ -1,18 +1,14 @@
-version: '3.9'
+version: "3.9"
 
 services:
-  dash:
-    command: tail -f /dev/null
-    image: akraradets/ait-ml-dash:2023
-    platform: linux/x86_64
-    build: 
+  car-price-app:
+    build:
       context: .
-      dockerfile: .Dockerfile
-    ports:
-      - 9001:80
+      dockerfile: Dockerfile
+    container_name: car_price_app
     volumes:
-      - ./code:/root/code
-      - ./.vscode-server:/root/.vscode-server
-    environment:
-      - HOST=0.0.0.0
-      - PORT=80
+      - ./code:/app  # Mount the code directory for development
+    ports:
+      - "6000:6000"  # Map container port 6000 to host port 6000
+    stdin_open: true  # Keep container open for interactive debugging
+    tty: true         # Allocate a pseudo-TTY
