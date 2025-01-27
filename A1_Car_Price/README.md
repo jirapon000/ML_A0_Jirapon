@@ -1,4 +1,4 @@
-Dash Plotly
+# Dash Plotly
 To run this folder, you will need Docker, then just run this with
 
 docker compose up --build
