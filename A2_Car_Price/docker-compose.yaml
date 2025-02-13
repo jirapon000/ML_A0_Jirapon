@@ -1,0 +1,15 @@
+version: '3.9'
+
+services:
+  web: 
+    command: python3 app.py
+    image: st124856/car_price2:a2.1
+    build: 
+      context: .
+      dockerfile: .Dockerfile
+    platform: linux/amd64
+    environment:
+      - HOST=0.0.0.0
+      - PORT=80
+    ports:
+      - 4000:80
