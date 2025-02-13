@@ -1,0 +1,31 @@
+version: '3.9'
+
+services:
+  web: 
+    command: python3 app.py
+    image: st124856/car_price2:a2.1
+    environment:
+      - HOST=0.0.0.0
+      - PORT=80
+    labels:
+      # Allow Traefik to talk with yout service
+      - traefik.enable=true
+      # Tell Traefil to use port 80
+      - traefik.http.services.web-st124856.loadbalancer.server.port=80
+      #This config you domain name. By Default, your subdomain name is web-st124856
+      # If you want to change your subdomain name, you uncomment the below configuration
+      - traefik.http.routers.web-st124856.rule=Host(`st124856.ml.brain.cs.ait.ac.th`)
+      # Below is for enable SSL
+      - traefik.http.routers.web-st124856.tls=true
+      - traefik.http.routers.web-st124856.tls.certresolver=production
+      - traefik.http.routers.web-st124856.entrypoints=websecure
+
+    networks:
+      - default
+      - traefik_default
+  
+
+networks:
+  default:
+  traefik_default:
+    external: true
