@@ -1,14 +1,15 @@
-version: "3.9"
+version: '3.9'
 
 services:
-  car-price-app:
-    build:
+  web: 
+    command: python3 app.py
+    image: st124856/car_price1:a1
+    build: 
       context: .
-      dockerfile: Dockerfile
-    container_name: car_price_app
-    volumes:
-      - ./code:/app  # Mount the code directory for development
+      dockerfile: .Dockerfile
+    platform: linux/amd64
+    environment:
+      - HOST=0.0.0.0
+      - PORT=80
     ports:
-      - "6000:6000"  # Map container port 6000 to host port 6000
-    stdin_open: true  # Keep container open for interactive debugging
-    tty: true         # Allocate a pseudo-TTY
+      - 4000:80
