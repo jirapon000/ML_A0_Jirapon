@@ -3,9 +3,19 @@ from dash import Dash, html, dcc, Input, Output
 import pandas as pd
 import joblib
 import numpy as np
-
+import mlflow
+import mlflow.sklearn
+import os
 # Load the trained model
-model = joblib.load('model/selling_price3.model')
+mlflow.set_tracking_uri("https://mlflow.ml.brain.cs.ait.ac.th/")
+os.environ["MLFLOW_TRACKING_USERNAME"] = "admin"
+os.environ["MLFLOW_TRACKING_PASSWORD"] = "password"
+
+# Define model URI
+model_uri = "models:/st124856-a3-model/1"
+
+# Load the model from MLflow
+model = mlflow.sklearn.load_model(model_uri)
 
 # Initialize the Dash app
 app = Dash()
